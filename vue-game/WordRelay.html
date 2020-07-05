@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <word-relay></word-relay>
+        <word-relay></word-relay>
+        <word-relay></word-relay>
+        
+    </div>
+    
+
+    <script>
+        Vue.component('word-relay', { // 전역 컴포넌트
+            template:`
+            <div>
+                <div>{{word}}</div>
+                <form v-on:submit="onSubmitForm">
+                    <input type="text" ref="answer" v-model="value">
+                    <button type="submit">입력!</button>
+                </form>
+                <div>{{result}}</div>
+            </div>
+            `,
+            data() {
+                return{
+                    word: '웹개발',
+                    result: '',
+                    value: '',
+                };
+            },
+            methods:{
+                onSubmitForm(e){
+                    e.preventDefault();
+                    if (this.word[this.word.length -1] === this.value[0] ){
+                        this.result = '통과!';
+                        this.word = this.value;
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    } else {
+                        this.result = '땡!';
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }
+                }
+            }
+        })
+    </script>
+    <script>
+        const app = new Vue ({
+            el: '#root',
+        });
+    </script>
+</body>
+</html>

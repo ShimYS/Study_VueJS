@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div>{{first}}곱하기 {{second}}는?</div>
+        <form v-on:submit="onSubmitForm">
+            <input type="number" ref="answer" v-model="value">
+            <button type="submit">입력</button>
+        </form>
+        <div id="result">{{result}}</div>
+    </div>
+
+
+    <script>
+        const app = new Vue ({
+            el:'#root',
+            data:{
+                first: Math.ceil(Math.random() * 9),
+                second: Math.ceil(Math.random() * 9),
+                value: '',
+                result: '',
+            },
+            methods:{
+                onSubmitForm(e){
+                    e.preventDefault(); //form이 페이지 새로고침 하는것을 방지
+                    //console.log(this)
+                    //console.log(this.first, this.second, this.value);
+                    if (this.first * this.second === parseInt(this.value)) {
+                        this.result = '정답!';
+                        this.first = Math.ceil(Math.random() * 9);
+                        this.second = Math.ceil(Math.random() * 9);
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    } else {
+                        this.result = '땡!';
+                        this.value = '';
+                    }               
+                },
+            },
+        });
+    </script>
+</body>
+</html>
