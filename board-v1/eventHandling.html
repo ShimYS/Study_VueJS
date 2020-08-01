@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <!-- <button type="button" v-on:click="add">더하기</button> -->
+       <button type="button" @click="add">더하기</button>
+       {{ counter }}
+
+       <input type="text" @keyup.enter="keyUp">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    counter: 0
+                };
+            },
+            methods: {
+                add() {
+                    this.counter ++;
+                },
+                keyUp(ev) {
+                    console.log('Its Enter!');
+                }
+
+            }
+        });
+    </script>
+</body>
+</html>
